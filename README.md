@@ -10,9 +10,9 @@ Work In Progress.
 
 ### Usage
 ```shell
-pipenv install
+pipenv sync
 pipenv shell
-python3 ./app.py
+pipenv run python3 ./app.py
 ```
 ### Todo
   - fix applying jumphosts correctly (order matters)
