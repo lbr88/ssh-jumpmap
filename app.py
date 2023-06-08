@@ -170,7 +170,7 @@ if __name__ == "__main__":
     # remove_wildcards remove nodes that are matched by a wildcard
     remove_wildcards = False
     # AddLocalhost add localhost and connect it to all nodes that are not connected
-    AddLocalhost = True
+    AddLocalhost = True  # Broken
     hosts = parse_ssh_config(CONFIG_FILE)
     if Anon:
         hosts = anonimize_hosts(hosts)
@@ -178,15 +178,15 @@ if __name__ == "__main__":
 
     if AddLocalhost:
         graph.add_node("localhost")
-        for node, attributes in graph.nodes(data=True):
-            print(node, attributes)
-            # if len(graph.edges(host)):
+        # TODO: fix this logic
+        # for node, attributes in graph.nodes(data=True):
+        #    print(node, attributes)
+        #    # if len(graph.edges(host)):
+        #    if not attributes.get("ProxyJump"):
+        #        graph.add_edge("localhost", node)
+        for host, attributes in hosts.items():
             if not attributes.get("ProxyJump"):
-                graph.add_edge("localhost", node)
-        # for host, attributes in hosts.items():
-        #    if len(graph.edges(host)) > 0:
-        #        # if not attributes.get("ProxyJump"):
-        #        graph.add_edge("localhost", host)
+                graph.add_edge("localhost", host)
 
     # print all nodes and their edges
     for node in graph.nodes:
